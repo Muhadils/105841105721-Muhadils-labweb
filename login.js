@@ -59,27 +59,36 @@ const App = () => {
   return (
     <View style ={styles.container}>
       <View style ={styles.content}>
-        <Text style={styles.title}>Forgot Password</Text>
-        <Text  style ={{
-          fontSize : 12,
-          // fontFamily : 'MetroMedium'
-        }}>Silakan masukkan alamat email Anda. Anda akan menerima tautan untuk membuat kata sandi baru melalui email</Text>
+        <Text style={styles.title}>Login</Text>
         <View  style= {styles.form}>
           <TextInputCostum placeholder="Email" typekeyboard="email-address"/>
+          <TextInputCostum placeholder="Password" typekeyboard="default"/>
           <View  style ={{
             justifyContent : 'flex-end',
             flexDirection : 'row',
             marginBottom : 10
           }}>
             <Text style ={{
-              fontSize :12,
-              textAlign :'center',
-              color :'red'
-              // marginLeft :130,
+              fontSize :15,
+              textAlign :'flex-end',
+              marginLeft :130,
               // fontFamily : 'MetroMedium'
-            }}>Bukan alamat email yang valid. Seharusnya email Anda@email.com</Text>
+            }}>Forgot your password?</Text>
           </View>
-          <ButtonCostum text = "SEND" color = "#C40C0C"/>
+          <ButtonCostum text = "LOGIN" color = "#C40C0C"/>
+        </View>
+      </View>
+      <Text style ={{
+        fontSize : 15,
+        textAlign : 'center',
+        // fontFamily : 'MetroMedium'
+      }}>Or login with social account</Text>
+      <View style ={styles.logoRow}>
+        <View style ={styles.logoContainer}>
+          <Image source = {require('./assets/google.jpeg')} style ={styles.logo}/>
+        </View>
+        <View style ={styles.logoContainer}>
+          <Image source ={require('./assets/fb.jpeg')} style ={styles.logo}/>
         </View>
       </View>
     </View>
