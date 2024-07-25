@@ -1,130 +1,59 @@
-// Rest of the import statements
-import { useFonts } from 'expo-font';
-import {StyleSheet,View, Text,TextInput,Image} from 'react-native'
-import React from 'react';
+import * as React from 'react';
+import { View, Text, Button, Image, TouchableOpacity, TouchableOpacityBase } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginPage from './login.js';
+import SignUpPage from './singUp.js'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeAktif from './assets/icon/home-aktif.png';
+import HomeInaktif from './assets/icon/home.png';
+// import Shop from './assets/icon/shop-aktif.png'
+// import ShopInaktif from './assets/icon/shop-non-aktif.png'
 
-
-const TextInputCostum =({ placeholder,keyboardType}) => {
-  return(
-    <TextInput 
-    placeholder ={placeholder}
-    keyboardType ={keyboardType}
-    style ={{
-      width :320,
-      height :60,
-      borderColor : 'gray',
-      borderRadius :5,
-      borderWidth :1,
-      marginBottom :5,
-      paddingLeft :20,
-      backgroundColor : 'white',
-      fontSize : 15,
-      // fontFamily : 'MetroMedium'
-    }}></TextInput>
-  )
-}
-
-const ButtonCostum =({text,color}) => {
+const Tab = createBottomTabNavigator();
+function MyTabs() {
   return (
-    <View style ={{
-      backgroundColor :color,
-      width :'100%',
-      height :50,
-      borderRadius :25,
-      justifyContent : 'center',
-      marginTop :20
-    }}>
-      <Text style={{
-        fontSize : 20,
-        color : 'white',
-        // fontWeight : 'bold',
-        textAlign :'center',
-        // fontFamily : 'MetroMedium'
-      }}>{text}</Text>
-    </View>
-  )
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? HomeAktif : HomeInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
-
-const App = () => {
-  // export default function App() {
-    const [dapatFont]= useFonts({
-      'MetroBold': require('./assets/Fonts/Metropolis-Bold.otf'),
-      // 'MetroMedium': require('./assets/Fonts/Metropolis-Medium.otf')
-    });
-    if (!dapatFont) {
-      return <Text>Font tidak ditemukan......</Text>
-    }
-    
+function HomeScreen({ navigation }) {
   return (
-    <View style ={styles.container}>
-      <View style ={styles.content}>
-        <Text style={styles.title}>Forgot Password</Text>
-        <Text  style ={{
-          fontSize : 12,
-          // fontFamily : 'MetroMedium'
-        }}>Silakan masukkan alamat email Anda. Anda akan menerima tautan untuk membuat kata sandi baru melalui email</Text>
-        <View  style= {styles.form}>
-          <TextInputCostum placeholder="Email" typekeyboard="email-address"/>
-          <View  style ={{
-            justifyContent : 'flex-end',
-            flexDirection : 'row',
-            marginBottom : 10
-          }}>
-            <Text style ={{
-              fontSize :12,
-              textAlign :'center',
-              color :'red'
-              // marginLeft :130,
-              // fontFamily : 'MetroMedium'
-            }}>Bukan alamat email yang valid. Seharusnya email Anda@email.com</Text>
-          </View>
-          <ButtonCostum text = "SEND" color = "#C40C0C"/>
-        </View>
-      </View>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
-  )
+  );
 }
 
+const Stack = createNativeStackNavigator();
 
-export default App
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={MyTabs} options={{headerShown: false}} />
+        <Stack.Screen name="SignUp" component={SignUpPage} options={{headerShown: false}} />
+        <Stack.Screen name="Login" component={LoginPage} options={{headerShown: false}} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
-const styles =StyleSheet.create({
-  container :{
-    flex :1,
-    backgroundColor : '#EEEEEE',
-    padding : 20
-  },
-  content :{
-    flex :1,
-    justifyContent : 'center',
-    // alignItems : 'center'
-  },
-  title : {
-    fontSize : 35,
-    // fontWeight : 'bold',
-    marginBottom : 40,
-    fontFamily : 'MetroBold'
-  },
-  form : {
-    width : '100%',
-    alignItems :'center',
-    // fontFamily : 'MetroMedium'
-  },
-  logoRow : {
-    flexDirection : 'row',
-    justifyContent : 'center',
-    alignItems : 'center',
-    paddingVertical : 20
-  },
-  logoContainer : {
-    borderRadius : 15,
-    padding : 15,
-    backgroundColor : 'white',
-    marginHorizontal :10
-  },
-  logo : {
-    width : 30,
-    height : 30
-  },
-});
+export default App;
